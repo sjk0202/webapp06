@@ -15,15 +15,15 @@ dark_mode_css = """
         background-color: #4CAF50;
         color: white;
     }
-    .stTextInput, .stTextArea {
+    .stTextInput, .stTextArea, .stSelectbox, .stCheckbox {
         background-color: #333333;
         color: white;
         border: 1px solid #ffffff;
     }
-    .stTextInput input, .stTextArea textarea {
+    .stTextInput input, .stTextArea textarea, .stSelectbox select {
         color: white;
     }
-    .stAlert {
+    .stAlert, .stForm, .stSidebar, .stSidebarContent {
         background-color: #444444;
         border: 1px solid #555555;
     }
