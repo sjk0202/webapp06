@@ -7,7 +7,7 @@ from langchain_community.llms import OpenAI
 # 다크 모드 CSS
 dark_mode_css = """
 <style>
-    body {
+    body, .css-1d391kg, .css-1wvyk6x, .css-1v3fvcr, .css-k1vhr4 {
         background-color: #1e1e1e;
         color: #ffffff;
     }
@@ -15,20 +15,27 @@ dark_mode_css = """
         background-color: #4CAF50;
         color: white;
     }
-    .stTextInput, .stTextArea, .stSelectbox, .stCheckbox {
+    .stTextInput, .stTextArea, .stSelectbox, .stCheckbox, .stNumberInput, .stDateInput {
         background-color: #333333;
         color: white;
         border: 1px solid #ffffff;
     }
-    .stTextInput input, .stTextArea textarea, .stSelectbox select {
+    .stTextInput input, .stTextArea textarea, .stSelectbox select, .stNumberInput input, .stDateInput input {
         color: white;
     }
     .stAlert, .stForm, .stSidebar, .stSidebarContent {
         background-color: #444444;
         border: 1px solid #555555;
     }
+    .css-1v3fvcr, .css-k1vhr4 {
+        border-color: #555555;
+    }
 </style>
 """
+
+# 다크 모드 설정 함수
+def set_dark_mode():
+    st.markdown(dark_mode_css, unsafe_allow_html=True)
 
 st.title('🍎🍐🍊 나의 AI Chat 🥝🍅🍆')
 
@@ -39,6 +46,9 @@ def generate_response(input_text):
     response = llm(input_text)
     st.info(response)
 
+# 초기 다크 모드 상태
+is_dark_mode = False
+
 with st.form('my_form'):
     text = st.text_area('Enter text:', '무엇을 도와드릴까요?')
     submitted = st.form_submit_button('Submit')
@@ -48,7 +58,11 @@ with st.form('my_form'):
     
     if submitted:
         if text.strip().lower() == "/다크모드":
-            st.markdown(dark_mode_css, unsafe_allow_html=True)
+            is_dark_mode = True
             st.success("다크 모드가 활성화되었습니다.")
         elif openai_api_key.startswith('sk-'):
             generate_response(text)
+
+# 다크 모드가 활성화된 경우 CSS 적용
+if is_dark_mode:
+    set_dark_mode()
